@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Inicio - AutoParts{% endblock %}
+
+{% block content %}
+<section class="hero text-center py-5">
+    <div class="hero-content">
+        <h1>Componentes de Auto de Alta Calidad</h1>
+        <p>Explora nuestra gama premium de repuestos, accesorios y mejoras para tu vehículo.</p>
+
+        {% if request.session.usuario_id %}
+            <a href="{% url 'catalogo' %}" class="btn btn-primary">Ver Catálogo</a>
+        {% else %}
+            <a href="{% url 'login' %}" class="btn btn-primary">Ver Catálogo</a>
+        {% endif %}
+    </div>
+</section>
+
+<section class="features container my-5 d-flex justify-content-around">
+    <div class="feature text-center">
+        <img src="{% static 'img/engine.png' %}" alt="Motor">
+        <h3>Motores y Partes</h3>
+        <p>Potencia y eficiencia con repuestos certificados.</p>
+    </div>
+    <div class="feature text-center">
+        <img src="{% static 'img/brake.png' %}" alt="Frenos">
+        <h3>Sistemas de Frenado</h3>
+        <p>Seguridad y rendimiento garantizados.</p>
+    </div>
+    <div class="feature text-center">
+        <img src="{% static 'img/tire.webp' %}" alt="Neumáticos">
+        <h3>Neumáticos</h3>
+        <p>Variedad y durabilidad para todo tipo de terreno.</p>
+    </div>
+</section>
+
+<section class="promo bg-light py-4 text-center">
+    <div class="promo-content">
+        <h2>Descuentos Exclusivos</h2>
+        <p>¡Hasta 30% off en artículos seleccionados!</p>
+        <a href="#" class="btn btn-secondary">Ver Ofertas</a>
+    </div>
+</section>
+{% endblock %}
+

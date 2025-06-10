@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block title %}Factura Proforma{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4">Factura Proforma</h1>
+
+    <!-- Datos de la empresa -->
+    <div class="mb-4">
+        <h5>Datos de la Empresa</h5>
+        <p><strong>Nombre:</strong> {{ empresa.0 }}</p>
+        <p><strong>Correo:</strong> {{ empresa.1 }}</p>
+    </div>
+
+    <!-- Detalle de productos -->
+    <table class="table table-bordered">
+        <thead class="table-light">
+            <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Precio Unitario</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in factura %}
+            <tr>
+                <td>{{ item.nombre_producto }}</td>
+                <td>{{ item.cantidad }}</td>
+                <td>${{ item.precio|intcomma }}</td>
+                <td>${{ item.subtotal|intcomma }}</td>
+            </tr>
+            {% endfor %}
+            <tr class="fw-bold">
+                <td colspan="3" class="text-end">Total:</td>
+                <td>${{ total|intcomma }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Acciones -->
+    <div class="d-flex justify-content-between mt-4">
+        <form method="POST" action="{% url 'enviar_factura_email' %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-primary">Enviar al Correo</button>
+        </form>
+        <button id="btnAceptar" class="btn btn-success">Aceptar Cotización</button>
+        <button id="btnRechazar" class="btn btn-danger">Denegar Cotización</button>
+    </div>
+
+    <!-- Alertas -->
+    <div id="alertContainer" class="mt-3"></div>
+</div>
+
+<!-- JS para alertas -->
+<script>
+document.getElementById("btnAceptar").onclick = () => {
+    document.getElementById("alertContainer").innerHTML = `
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            ✅ Cotización aceptada correctamente.
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>`;
+};
+
+document.getElementById("btnRechazar").onclick = () => {
+    document.getElementById("alertContainer").innerHTML = `
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            ❌ Cotización rechazada.
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>`;
+};
+</script>
+{% endblock %}

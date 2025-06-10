@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block content %}
+<div class="container">
+    <a href="{% url 'perfil' %}" class="btn btn-link text-decoration-none">
+    ← Volver al Perfil
+    </a>
+    <h3>Resumen de tu compra</h3>
+    <ul class="list-group mb-3">
+        {% for item in resumen %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            {{ item.nombre }} (x{{ item.cantidad }})
+            <span>${{ item.subtotal|intcomma }}</span>
+        </li>
+        {% endfor %}
+        <li class="list-group-item d-flex justify-content-between" id="fila-envio" style="display:none;">
+            Envio: <span id="costo-envio">$0</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between fw-bold">
+            Total Final: <span id="total-final">${{ total|intcomma }}</span>
+        </li>
+    </ul>
+
+    <form method="POST" action="{% url 'procesar_pago_b2c' %}">
+        {% csrf_token %}
+        <h5 class="mt-4">Datos del Cliente</h5>
+        <p><strong>Nombre:</strong> {{ request.session.usuario_nombre }}</p>
+        <p><strong>Correo:</strong> {{ request.session.usuario_correo }}</p>
+
+        <h5 class="mt-4">Datos de Envío</h5>
+
+        <div class="mb-3">
+            <label for="metodo_envio" class="form-label">Método de envío</label>
+            <select class="form-select" name="metodo_envio" id="metodo_envio" onchange="verificarYCalcularEnvio()" required>
+                <option value="retiro">Retiro en tienda</option>
+                <option value="envio">Envío a domicilio</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="direccion" class="form-label">Dirección</label>
+            <input type="text" class="form-control" name="direccion" id="direccion" required oninput="verificarYCalcularEnvio()">
+        </div>
+
+        <div class="mb-3">
+            <label for="ciudad" class="form-label">Ciudad</label>
+            <input type="text" class="form-control" name="ciudad" id="ciudad" required oninput="verificarYCalcularEnvio()">
+        </div>
+
+        <div class="mb-3">
+            <label for="telefono" class="form-label">Teléfono</label>
+            <input type="text" class="form-control" name="telefono" required>
+        </div>
+
+       <button type="submit" class="btn btn-primary w-100">Ir al Pago con Webpay</button>
+
+
+    </form>
+</div>
+
+<script>
+function verificarYCalcularEnvio() {
+    const metodo = document.getElementById("metodo_envio").value;
+    const ciudad = document.getElementById("ciudad").value;
+    const direccion = document.getElementById("direccion").value;
+    const totalProductos = {{ total|default:0 }};
+
+    if (metodo === 'envio' && ciudad.length > 2 && direccion.length > 4) {
+        fetch(`/api/costo-envio/?ciudad=${encodeURIComponent(ciudad)}&direccion=${encodeURIComponent(direccion)}`)
+            .then(res => res.json())
+            .then(data => {
+                const costoEnvio = data.precio_envio || 0;
+                document.getElementById("fila-envio").style.display = "flex";
+                document.getElementById("costo-envio").textContent = `$${costoEnvio.toLocaleString()}`;
+                document.getElementById("total-final").textContent = `$${(totalProductos + costoEnvio).toLocaleString()}`;
+            });
+    } else {
+        document.getElementById("fila-envio").style.display = "none";
+        document.getElementById("costo-envio").textContent = "$0";
+        document.getElementById("total-final").textContent = `$${totalProductos.toLocaleString()}`;
+    }
+}
+</script>
+{% endblock %}

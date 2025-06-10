@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+</head>
+<body>
+<h2>Bienvenido {{ request.user.username }}</h2>
+<a href="{% url 'logout' %}">Cerrar sesión</a>
+
+
+
+</body>
+</html>

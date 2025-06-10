@@ -1,0 +1,26 @@
+
+<h2>Panel del Bodeguero</h2>
+<h3>Productos en stock</h3>
+<ul>
+  {% for producto in productos %}
+    <li>{{ producto.nombre }} - Stock: {{ producto.stock }}</li>
+  {% endfor %}
+</ul>
+
+<h3>Pedidos</h3>
+<ul>
+  {% for pedido in pedidos %}
+    <li>
+      Pedido #{{ pedido.id_pedido }} - Estado: {{ pedido.estado }}
+      <form method="POST" action="{% url 'cambiar_estado_pedido' pedido.id_pedido %}">
+        {% csrf_token %}
+        <select name="nuevo_estado">
+          <option>Pendiente</option>
+          <option>En preparación</option>
+          <option>Despachado</option>
+        </select>
+        <button type="submit">Actualizar</button>
+      </form>
+    </li>
+  {% endfor %}
+</ul>

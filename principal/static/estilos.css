@@ -1,0 +1,239 @@
+:host {
+  display: block;
+  font-family: 'Segoe UI', sans-serif;
+  color: #222;
+}
+
+.hero {
+  background: url('/assets/images/auto-hero.jpg') center/cover no-repeat;
+  color: #fff;
+  text-align: center;
+  padding: 6rem 2rem;
+
+  .hero-content {
+    background-color: rgba(0, 0, 0, 0.5);
+    display: inline-block;
+    padding: 2rem 3rem;
+    border-radius: 1rem;
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+    }
+
+    .btn-primary {
+      background-color: #e60000;
+      color: #fff;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s;
+
+      &:hover {
+        background-color: #cc0000;
+      }
+    }
+  }
+}
+
+.features {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 4rem 2rem;
+  background-color: #f5f5f5;
+  text-align: center;
+
+  .feature {
+    flex: 1 1 250px;
+    max-width: 300px;
+    margin: 1rem;
+
+    img {
+      width: 64px;
+      height: 64px;
+      margin-bottom: 1rem;
+    }
+
+    h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      font-size: 1rem;
+      color: #555;
+    }
+  }
+}
+
+.promo {
+  background-color: #222;
+  color: #fff;
+  text-align: center;
+  padding: 4rem 2rem;
+
+  .promo-content {
+    max-width: 600px;
+    margin: 0 auto;
+
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+    }
+
+    .btn-secondary {
+      background-color: #e60000;
+      color: #fff;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      text-decoration: none;
+      font-weight: bold;
+
+      &:hover {
+        background-color: #b30000;
+      }
+    }
+  }
+}
+
+.navbar {
+  background-color: #111;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  .navbar-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #e60000;
+    text-decoration: none;
+    margin-right: 10px;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 1.5rem;
+
+    a {
+      text-decoration: none;
+      color: white;
+      font-weight: 500;
+      transition: color 0.3s;
+
+      &:hover,
+      &.active {
+        color: #e60000;
+      }
+    }
+
+    &.mobile {
+      flex-direction: column;
+      background-color: #111;
+      padding: 1rem;
+    }
+
+    &.desktop {
+      @media (max-width: 768px) {
+        display: none;
+      }
+    }
+  }
+
+  .menu-toggle {
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    color: white;
+    display: none;
+    cursor: pointer;
+
+    @media (max-width: 768px) {
+      display: block;
+    }
+  }
+}
+---------
+.form-container {
+  max-width: 500px;
+  margin: auto;
+  padding: 2rem;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-container input.form-control {
+  margin-bottom: 15px;
+  border-radius: 8px;
+}
+
+.form-container label {
+  font-weight: 600;
+}
+
+.form-container .form-check-label {
+  font-size: 0.9rem;
+}
+
+.btn-rojo {
+  background-color: #e94435;
+  border-color: #e94435;
+  color: white;
+}
+
+.btn-rojo:hover {
+  background-color: #c83629;
+  border-color: #c83629;
+}
+.form-container {
+  max-width: 500px;
+  margin: auto;
+  padding: 2rem;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-container input.form-control {
+  margin-bottom: 15px;
+  border-radius: 8px;
+}
+
+.form-container label {
+  font-weight: 600;
+}
+
+.form-container .form-check-label {
+  font-size: 0.9rem;
+}
+
+.btn-rojo {
+  background-color: #e94435;
+  border-color: #e94435;
+  color: white;
+}
+
+.btn-rojo:hover {
+  background-color: #c83629;
+  border-color: #c83629;
+}

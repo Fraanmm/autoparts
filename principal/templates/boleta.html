@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<a href="{% url 'perfil' %}" class="btn btn-secondary">← Volver al perfil</a>
+<h2>Boleta de Compra</h2>
+{% if factura %}
+    <p>Factura N°: {{ factura.id_factura }}</p>
+    <p>Fecha: {{ factura.fecha_emision }}</p>
+    <p>Estado: {{ factura.estado }}</p>
+    <h4>Productos:</h4>
+    <ul>
+    {% for item in detalles %}
+        <li>{{ item.nombre_producto }} - {{ item.cantidad }} x ${{ item.precio_unitario }} = ${{ item.subtotal }}</li>
+    {% endfor %}
+    </ul>
+    <p>Total: <strong>${{ factura.total }}</strong></p>
+{% else %}
+    <p>No hay datos de compra.</p>
+{% endif %}
+{% endblock %}
+
